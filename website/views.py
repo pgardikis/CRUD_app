@@ -8,12 +8,12 @@ def home():
 
 @views.route('/add_person')
 def add_person():
-    return "<h1> Add Person Page </h1>"
+    return render_template("add_person.html")
 
 @views.route('/edit_person')
 def edit_person():
-    return "<h1> Edit Person Page </h1>"
+    return render_template("edit_person.html")
 
 @views.route('/delete_person')
 def delete_person():
-    return "<h1> Delete Person Page </h1>"
+    return render_template("delete_person.html")
