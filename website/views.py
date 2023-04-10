@@ -6,7 +6,8 @@ views = Blueprint('views', __name__)
 
 @views.route('/')
 def home():
-    return render_template("home.html")
+    people = Person.query.all()
+    return render_template("home.html", people=people)
 
 @views.route('/add_person', methods=['GET', 'POST'])
 def add_person():
