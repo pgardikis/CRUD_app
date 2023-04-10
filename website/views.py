@@ -26,6 +26,11 @@ def add_person():
 def edit_person():
     return render_template("edit_person.html")
 
-@views.route('/delete_person')
+@views.route('/delete_person', methods=['POST'])
 def delete_person():
-    return render_template("delete_person.html")
+    id = request.form['id']
+    person = Person.query.get(id)
+    db.session.delete(person)
+    db.session.commit()
+    flash(f'Person with ID: {id} deleted successfully!', 'success')
+    return redirect(url_for("views.home"))
