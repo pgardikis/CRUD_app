@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Website</title>
+  </head>
+  <body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/add_person">Add Person</a>
+        <a href="/edit_person">Edit Person</a>
+        <a href="/delete_person">Delete Person</a>
+    </nav>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+  </body>
