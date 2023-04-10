@@ -22,8 +22,23 @@ def add_person():
 
     return render_template("add_person.html")
 
-@views.route('/edit_person')
+@views.route('/edit_person', methods=['GET', 'POST'])
 def edit_person():
+    if request.method == 'POST':
+        person_id = request.form['id']
+        person = Person.query.filter_by(id=person_id).first()
+
+        if person:
+            firstname = request.form['firstname']
+            lastname = request.form['lastname']
+            person.firstname = firstname
+            person.lastname = lastname
+            db.session.commit()
+            flash('Person details updated successfully!', 'success')
+            return redirect(url_for('views.home'))
+        else:
+            flash(f'Person with ID {person_id} does not exist.', 'error')
+
     return render_template("edit_person.html")
 
 @views.route('/delete_person', methods=['POST'])
