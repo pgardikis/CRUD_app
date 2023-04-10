@@ -1,4 +1,6 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, redirect, url_for, flash
+from .models import Person
+from . import db
 
 views = Blueprint('views', __name__)
 
@@ -11,6 +13,12 @@ def add_person():
     if request.method == 'POST':
         firstname = request.form.get('firstname')
         lastname = request.form.get('lastname')
+        new_person = Person(firstname=firstname, lastname=lastname)
+        db.session.add(new_person)
+        db.session.commit()
+        flash('Person added!', 'success')
+        return redirect(url_for("views.home"))
+
     return render_template("add_person.html")
 
 @views.route('/edit_person')
