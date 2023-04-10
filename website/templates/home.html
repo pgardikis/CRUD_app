@@ -21,12 +21,22 @@
     </tbody>
   </table>
 
-  <h2 class="text-center">Delete Person</h2>
-  <form action="{{ url_for('views.delete_person') }}" method="POST" class="mx-auto text-center">
-    <div class="form-group">
-      <label for="id">Enter the ID of the person you want to delete:</label>
-      <input type="text" class="form-control mx-auto" id="id" name="id" placeholder="Enter ID" style="width: 250px;">
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header text-center">
+          <h2>Delete Person</h2>
+        </div>
+        <div class="card-body">
+          <form action="{{ url_for('views.delete_person') }}" method="POST">
+            <div class="form-group text-center">
+              <label for="id">Enter the ID of the person you want to delete:</label>
+              <input type="text" class="form-control mx-auto" id="id" name="id" placeholder="Enter ID" style="width: 200px;">
+            </div>
+            <button type="submit" class="btn btn-danger mx-auto d-block">Delete</button>
+          </form>
+        </div>
+      </div>
     </div>
-    <button type="submit" class="btn btn-danger">Delete</button>
-  </form>
+  </div>
 {% endblock %}
