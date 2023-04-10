@@ -6,8 +6,11 @@ views = Blueprint('views', __name__)
 def home():
     return render_template("home.html")
 
-@views.route('/add_person')
+@views.route('/add_person', methods=['GET', 'POST'])
 def add_person():
+    if request.method == 'POST':
+        firstname = request.form.get('firstname')
+        lastname = request.form.get('lastname')
     return render_template("add_person.html")
 
 @views.route('/edit_person')
