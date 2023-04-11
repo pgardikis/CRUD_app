@@ -9,6 +9,12 @@ def home():
     people = Person.query.all()
     return render_template("home.html", people=people)
 
+@views.route('/search_person', methods=['GET'])
+def search_person():
+    query = request.args.get('search', '')
+    people = Person.query.filter(Person.firstname.ilike(f'%{query}%') | Person.lastname.ilike(f'%{query}%')).all()
+    return render_template("home.html", people=people)
+
 @views.route('/add_person', methods=['GET', 'POST'])
 def add_person():
     if request.method == 'POST':
