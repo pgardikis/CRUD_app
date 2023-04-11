@@ -19,7 +19,6 @@ def add_person():
         db.session.commit()
         flash('Person added!', 'success')
         return redirect(url_for("views.home"))
-
     return render_template("add_person.html")
 
 @views.route('/edit_person', methods=['GET', 'POST'])
@@ -38,14 +37,18 @@ def edit_person():
             return redirect(url_for('views.home'))
         else:
             flash(f'Person with ID {person_id} does not exist.', 'error')
-
     return render_template("edit_person.html")
 
 @views.route('/delete_person', methods=['POST'])
 def delete_person():
-    id = request.form['id']
-    person = Person.query.get(id)
-    db.session.delete(person)
-    db.session.commit()
-    flash(f'Person with ID: {id} deleted successfully!', 'success')
-    return redirect(url_for("views.home"))
+    person_id = request.form['id']
+    person = Person.query.get(person_id)
+    
+    if person:
+        db.session.delete(person)
+        db.session.commit()
+        flash(f'Person with ID: {person_id} deleted successfully!', 'success')
+        return redirect(url_for("views.home"))
+    else:
+        flash(f'Person with ID: {person_id} does not exist.', 'error')
+    return redirect(url_for('views.home'))
