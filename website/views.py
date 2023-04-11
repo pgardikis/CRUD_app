@@ -49,12 +49,7 @@ def edit_person():
 def delete_person():
     person_id = request.form['id']
     person = Person.query.get(person_id)
-    
-    if person:
-        db.session.delete(person)
-        db.session.commit()
-        flash(f'Person with ID: {person_id} deleted successfully!', 'success')
-        return redirect(url_for("views.home"))
-    else:
-        flash(f'Person with ID: {person_id} does not exist.', 'error')
+    db.session.delete(person)
+    db.session.commit()
+    flash(f'Person with ID: {person_id} deleted successfully!', 'success')
     return redirect(url_for('views.home'))
