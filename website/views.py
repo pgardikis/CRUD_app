@@ -1,24 +1,26 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from .models import Person
 from . import db
-from .forms import AddPersonForm, EditPersonForm
+from .forms import AddPersonForm, EditPersonForm, SearchPersonForm
 
 views = Blueprint('views', __name__)
 
-@views.route('/')
+@views.route('/', methods=['GET', 'POST'])
 def home():
-    people = Person.query.all()
-    return render_template("home.html", people=people)
+    form = SearchPersonForm()
+    people = []
 
-@views.route('/search_person', methods=['GET'])
-def search_person():
-    query = request.args.get('search', '')
-    people = Person.query.filter(Person.firstname.ilike(f'%{query}%') | Person.lastname.ilike(f'%{query}%')).all()
-    return render_template("home.html", people=people)
+    if form.validate_on_submit():
+        search_person = form.search_person.data
+        people = Person.query.filter(Person.firstname.ilike(f'%{search_person}%') | Person.lastname.ilike(f'%{search_person}%')).all()
+    else:
+        people = Person.query.all()
+    return render_template("home.html", form=form, people=people)
 
 @views.route('/add_person', methods=['GET', 'POST'])
 def add_person():
     form = AddPersonForm()
+
     if form.validate_on_submit():
         firstname = form.firstname.data
         lastname = form.lastname.data
@@ -32,10 +34,10 @@ def add_person():
 @views.route('/edit_person', methods=['GET', 'POST'])
 def edit_person():
     form = EditPersonForm()
+
     if form.validate_on_submit():
         person_id = form.id.data
         person = Person.query.filter_by(id=person_id).first()
-
         if person:
             person.firstname = form.firstname.data
             person.lastname = form.lastname.data
