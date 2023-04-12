@@ -8,22 +8,33 @@
           <h1 class="text-center">Edit Person</h1>
 
           <form method="POST" action="{{ url_for('views.edit_person') }}" class="mx-auto text-center">
+            {{ form.hidden_tag() }}
+
             <div class="form-group">
-              <label for="id">ID</label>
-              <input type="text" class="form-control mx-auto" id="id" name="id" placeholder="Enter ID" style="width: 300px;" required>
+              {{ form.id.label(class="control-label") }}
+              {{ form.id(class="form-control mx-auto", placeholder="Enter ID", style="width: 300px;") }}
+              {% for error in form.id.errors %}
+                <span class="help-block">{{ error }}</span>
+              {% endfor %}
             </div>
 
             <div class="form-group">
-              <label for="firstname">First Name</label>
-              <input type="text" class="form-control mx-auto" id="firstname" name="firstname" placeholder="Enter first name" style="width: 300px;">
+              {{ form.firstname.label(class="control-label") }}
+              {{ form.firstname(class="form-control mx-auto", placeholder="Enter first name", style="width: 300px;") }}
+              {% for error in form.firstname.errors %}
+                <span class="help-block">{{ error }}</span>
+              {% endfor %}
             </div>
 
             <div class="form-group">
-              <label for="lastname">Last Name</label>
-              <input type="text" class="form-control mx-auto" id="lastname" name="lastname" placeholder="Enter last name" style="width: 300px;">
+              {{ form.lastname.label(class="control-label") }}
+              {{ form.lastname(class="form-control mx-auto", placeholder="Enter last name", style="width: 300px;") }}
+              {% for error in form.lastname.errors %}
+                <span class="help-block">{{ error }}</span>
+              {% endfor %}
             </div>
 
-            <button type="submit" class="btn btn-primary">Update Person</button>
+            {{ form.submit(class="btn btn-primary") }}
           </form>
         </div>
       </div>

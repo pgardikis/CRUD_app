@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from .models import Person
 from . import db
+from .forms import AddPersonForm, EditPersonForm
 
 views = Blueprint('views', __name__)
 
@@ -17,33 +18,33 @@ def search_person():
 
 @views.route('/add_person', methods=['GET', 'POST'])
 def add_person():
-    if request.method == 'POST':
-        firstname = request.form.get('firstname')
-        lastname = request.form.get('lastname')
+    form = AddPersonForm()
+    if form.validate_on_submit():
+        firstname = form.firstname.data
+        lastname = form.lastname.data
         new_person = Person(firstname=firstname, lastname=lastname)
         db.session.add(new_person)
         db.session.commit()
         flash('Person added!', 'success')
         return redirect(url_for("views.home"))
-    return render_template("add_person.html")
+    return render_template("add_person.html", form=form)
 
 @views.route('/edit_person', methods=['GET', 'POST'])
 def edit_person():
-    if request.method == 'POST':
-        person_id = request.form['id']
+    form = EditPersonForm()
+    if form.validate_on_submit():
+        person_id = form.id.data
         person = Person.query.filter_by(id=person_id).first()
 
         if person:
-            firstname = request.form['firstname']
-            lastname = request.form['lastname']
-            person.firstname = firstname
-            person.lastname = lastname
+            person.firstname = form.firstname.data
+            person.lastname = form.lastname.data
             db.session.commit()
             flash('Person details updated successfully!', 'success')
             return redirect(url_for('views.home'))
         else:
             flash(f'Person with ID {person_id} does not exist.', 'error')
-    return render_template("edit_person.html")
+    return render_template("edit_person.html", form=form)
 
 @views.route('/delete_person', methods=['POST'])
 def delete_person():
