@@ -38,6 +38,8 @@
                   <input type="hidden" name="id" value="{{ person.id }}">
                   <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
+                <a href="{{ url_for('views.edit_person', person_id=person.id) }}" >Edit</a>
+
               </td>
             </tr>
           {% endfor %}

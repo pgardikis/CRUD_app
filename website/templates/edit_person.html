@@ -7,20 +7,13 @@
         <div class="card-body">
           <h1 class="text-center">Edit Person</h1>
 
-          <form method="POST" action="{{ url_for('views.edit_person') }}" class="mx-auto text-center">
+          <form method="POST" action="{{ url_for('views.edit_person', person_id=person.id) }}" class="mx-auto text-center">
             {{ form.hidden_tag() }}
 
             <div class="form-group">
-              {{ form.id.label(class="control-label") }}
-              {{ form.id(class="form-control mx-auto", placeholder="Enter ID", style="width: 300px;") }}
-              {% for error in form.id.errors %}
-                <span class="help-block">{{ error }}</span>
-              {% endfor %}
-            </div>
-
-            <div class="form-group">
               {{ form.firstname.label(class="control-label") }}
-              {{ form.firstname(class="form-control mx-auto", placeholder="Enter first name", style="width: 300px;") }}
+              {{ form.firstname(class="form-control mx-auto", placeholder="Enter first name", style="width: 300px;", value=person.firstname )}}
+              
               {% for error in form.firstname.errors %}
                 <span class="help-block">{{ error }}</span>
               {% endfor %}
@@ -28,7 +21,8 @@
 
             <div class="form-group">
               {{ form.lastname.label(class="control-label") }}
-              {{ form.lastname(class="form-control mx-auto", placeholder="Enter last name", style="width: 300px;") }}
+              {{ form.lastname(class="form-control mx-auto", placeholder="Enter last name", style="width: 300px;", value=person.lastname )}}
+              
               {% for error in form.lastname.errors %}
                 <span class="help-block">{{ error }}</span>
               {% endfor %}

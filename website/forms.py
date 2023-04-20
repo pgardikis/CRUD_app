@@ -8,7 +8,6 @@ class AddPersonForm(FlaskForm):
     submit = SubmitField('Add Person')
 
 class EditPersonForm(FlaskForm):
-    id = IntegerField('ID', validators=[DataRequired()])
     firstname = StringField('First Name', validators=[Length(max=80)])
     lastname = StringField('Last Name', validators=[Length(max=80)])
     submit = SubmitField('Update Person')
