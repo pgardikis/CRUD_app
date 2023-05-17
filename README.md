@@ -1,23 +1,20 @@
 # CRUD APP
 
-## Setup and Installation
+## Running the app using Docker
 
-Make sure you have the latest version of Python installed.
+Make sure you have the latest version of Docker installed.
+
+Build the Docker image
 
 ```bash
-git clone <repo-url>
+docker build -t your-image-name .
 ```
 
+Run a Docker container
 ```bash
-pip install -r requirements.txt
-```
-
-## Running the app
-
-```bash
-python3 main.py
+docker run -d -p 8080:5000 your-image-name
 ```
 
 ## Viewing the app
 
-Go to `http://127.0.0.1:5000`
+Go to `http://127.0.0.1:8080`
