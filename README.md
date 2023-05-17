@@ -1,20 +1,28 @@
 # CRUD APP
 
+This is a simple Flask-based CRUD (Create, Read, Update, Delete) application with a web interface.
+
 ## Running the app using Docker
 
-Make sure you have the latest version of Docker installed.
+Make sure you have Docker installed.
 
-Build the Docker image
+- Clone the repository and navigate to the project directory
 
 ```bash
-docker build -t your-image-name .
+git clone https://github.com/pgardikis/CRUD_app.git
 ```
 
-Run a Docker container
+- Build the Docker image
+
 ```bash
-docker run -d -p 8080:5000 your-image-name
+docker build -t flask-crud-app .
+```
+
+- Run a Docker container
+```bash
+docker run -d -p 8080:5000 flask-crud-app
 ```
 
 ## Viewing the app
 
-Go to `http://127.0.0.1:8080`
+Go to `http://localhost:8080`
